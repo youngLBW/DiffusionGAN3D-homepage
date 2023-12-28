@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>DiffusionGAN3D</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+        <!--FACEBOOK-->
+    <meta property="og:image" content="">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="682">
+    <meta property="og:image:height" content="682">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content=""/>
+    <meta property="og:title" content="DiffusionGAN3D" />
+    <meta property="og:description" content="Project page for DiffusionGAN3D." />
+
+        <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DiffusionGAN3D" />
+    <meta name="twitter:description" content="Project page for DiffusionGAN3D." />
+    <meta name="twitter:image" content="" />
+
+
+    <!--<link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+    <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+</head>
+
+<body>
+    <br>
+    <div class="container" id="main" style="width: 85%;">
+    <!-- <div class="container" id="main"> -->
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>DiffusionGAN3D: Boosting Text-guided 3D Generation and Domain Adaption by<br>Combining 3D GANs and Diffusion Priors</br></b>
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://github.com/youngLBW">Biwen Lei</a>&emsp;
+                        <a href="">Kai Yu</a>&emsp;
+                        <a href="">Mengyang Feng</a>&emsp;
+                        <a href="">Miaomiao Cui</a>&emsp;
+                        <a href="">Xuansong Xie</a>
+
+                        <br><p>Alibaba Group</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">             
+                <table border="0" cellspacing="0" cellpadding="0" align="center" width="48%">
+                    <tr>
+                        <td align="center" valign="middle" width="20%">
+                            <a href="https://arxiv.org/abs/2312.05107" style="text-decoration: none;">
+                                <image src="assets/paper_image.jpg" height="60px" style="margin: 0px 0px 10px 0px;">
+                                <p>Paper</p>
+                            </a>
+                        </td>
+                        <td align="center" valign="middle" width="20%">
+                            <a href="" style="text-decoration: none;">
+                                <image src="assets/youtube_icon.png" height="60px" style="margin: 0px 0px 10px 0px;">
+                                <p>Video</p>
+                            </a>
+                        </td>
+                        <td align="center" valign="middle" width="20%">
+                            <a href="" style="text-decoration: none;">
+                                <image src="assets/github.png" height="60px" style="margin: 0px 0px 10px 0px;">
+                                <p>Code</p>
+                            </a>
+                        </td>
+                        <td align="center" valign="middle" width="20%">
+                            <a href="" style="text-decoration: none;">
+                                <image src="assets/modelscope.png" height="60px" style="margin: 0px 0px 10px 0px;">
+                                <p>Demo (Coming soon)</p>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <br>
+        
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <br>
+                <image width="100%" src="assets/teaser.png" class="img-responsive" alt="overview" style="margin:auto"><br>
+                <h3>
+                    <b>Abstract</b>
+                </h3>
+                <p class="text-justify">
+                    Text-guided domain adaption and generation of 3D-aware portraits find many applications in various fields. However, due to the lack of training data and the challenges in handling the high variety of geometry and appearance, the existing methods for these tasks suffer from issues like inflexibility, instability, and low fidelity. In this paper, we propose a novel framework <strong>DiffusionGAN3D</strong>, which boosts text-guided 3D domain adaption and generation by combining 3D GANs and diffusion priors. Specifically, we integrate the pre-trained 3D generative models (e.g., EG3D) and text-to-image diffusion models. The former provides a strong foundation for stable and high-quality avatar generation from text. And the diffusion models in turn offer powerful priors and guide the 3D generator finetuning with informative direction to achieve flexible and efficient text-guided domain adaption. To enhance the diversity in domain adaption and the generation capability in text-to-avatar, we introduce the relative distance loss and case-specific learnable triplane respectively. Besides, we design a progressive texture refinement module to improve the texture quality for both tasks above. Extensive experiments demonstrate that the proposed framework achieves excellent results in both domain adaption and text-to-avatar tasks, outperforming existing methods in terms of generation quality and efficiency.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="row"> 
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Architecture</b>
+                </h3>
+                <p class="text-justify">
+                    <strong>DiffusionGAN3D</strong> is a novel two-stage framework, which aims to boost the performance of 3D domain adaption and text-to-avatar tasks by combining 3D generative models and diffusion priors, as shown in the figure below.
+                </p>
+                <br>
+                <image width="90%" src="assets/framework.png" class="img-responsive" alt="overview" style="margin:auto"><br>
+            </div>
+        </div>
+
+
+        <!-- <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Video
+                </h3>
+                <div class="text-center">
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Results</b>
+                </h3>
+                <h4>
+                    <li> <b>Text-guided 3D stylization (face).</b> </li>
+                </h4>
+                Sampled images:
+                <table border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td align="center" valign="middle" width="33%">
+                            <image width="98%" src="assets/face_stylization_results/face_pixar_all.png">
+                        </td>
+                        <td align="center" valign="middle" width="33%">
+                            <image width="98%" src="assets/face_stylization_results/face_lego_all.png">
+                        </td>
+                        <td align="center" valign="middle" width="33%">
+                            <image width="98%" src="assets/face_stylization_results/zombie_ours.jpg">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+                            "pixar style"
+                        </td>
+                        <td align="center" valign="middle">
+                            "lego head"
+                        </td>
+                        <td align="center" valign="middle">
+                            "zombie"
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+                            <image width="98%" src="assets/face_stylization_results/plaster_ours.jpg">
+                        </td>
+                        <td align="center" valign="middle">
+                            <image width="98%" src="assets/face_stylization_results/oil_ours.jpg">
+                        </td>
+                        <td align="center" valign="middle">
+                            <image width="98%" src="assets/face_stylization_results/caricature_ours.jpg">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+                            "plaster statue"
+                        </td>
+                        <td align="center" valign="middle">
+                            "oil painting"
+                        </td>
+                        <td align="center" valign="middle">
+                            "caricature style"
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+
+                + inversion:
+                <table border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td align="center" valign="middle" width="20%">
+                            <image width="90%" src="assets/face_stylization_results/00852.jpg">
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/face_stylization_results/00852_pixar.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                        <td align="center" valign="middle" width="20%">
+                            <image width="90%" src="assets/face_stylization_results/00247.jpg">
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/face_stylization_results/00247_plaster_statue.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+
+                        </td>
+                        <td align="center" valign="middle">
+                            "pixar style"
+                        </td>
+                        <td align="center" valign="middle">
+
+                        </td>
+                        <td align="center" valign="middle">
+                            "plaster statue"
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle" width="20%">
+                            <image width="90%" src="assets/face_stylization_results/00018.jpg">
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/face_stylization_results/00018_zombie.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                        <td align="center" valign="middle" width="20%">
+                            <image width="90%" src="assets/face_stylization_results/00065.jpg">
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/face_stylization_results/00065_caricature.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+
+                        </td>
+                        <td align="center" valign="middle">
+                            "zombie"
+                        </td>
+                        <td align="center" valign="middle">
+
+                        </td>
+                        <td align="center" valign="middle">
+                            "caricature style"
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                <br>
+
+                <h4>
+                    <li> <b>3D local editing (face).</b> </li>
+                </h4>
+
+                <table border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td align="center" valign="middle" width="25%">
+                            <image width="98%" src="assets/local_editing_results/01995.jpg">
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/local_editing_results/01995_ori.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/local_editing_results/01995_blueeyes.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+                            real image
+                        </td>
+                        <td align="center" valign="middle">
+                            inversion
+                        </td>
+                        <td align="center" valign="middle">
+                            "blue eyes"
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle" width="25%">
+                            <image width="98%" src="assets/local_editing_results/00200.jpg">
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/local_editing_results/00200_ori.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                        <td align="center" valign="middle" width="30%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/local_editing_results/00200_pinkhair.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+                            real image
+                        </td>
+                        <td align="center" valign="middle">
+                            inversion
+                        </td>
+                        <td align="center" valign="middle">
+                            "pink hair"
+                        </td>
+                    </tr>
+                </table>
+
+
+
+                <h4>
+                    <li> <b>Text-to-Avatar (head).</b> </li>
+                </h4>
+
+                <table border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td align="center" valign="middle" width="25%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/text_to_avatar_results/batman.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                        <td align="center" valign="middle" width="25%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/text_to_avatar_results/hulk.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                        <td align="center" valign="middle" width="25%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/text_to_avatar_results/obama.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+                        <td align="center" valign="middle" width="25%">
+                            <video id="v0" width="98%" autoplay loop muted controls>
+                                <source src="assets/text_to_avatar_results/girl.mp4" type="video/mp4" />
+                            </video>
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <td align="center" valign="middle">
+                            "Batman"
+                        </td>
+                        <td align="center" valign="middle">
+                            "Hulk"
+                        </td>
+                        <td align="center" valign="middle">
+                            "Obama"
+                        </td>
+                        <td align="center" valign="middle">
+                            "a woman with brown short hair"
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Citation</b>
+                </h3>
+          </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    <b>Acknowledgements</b>
+                </h3>
+            </div>
+        </div>
+
+    </div>  
+    <br><br><br>
+</body>
+</html>
